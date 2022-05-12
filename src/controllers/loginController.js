@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
 import { database } from '../mongoDB.js';
 
-export async function userLogin(req, res) {
+export async function loginController(req, res) {
 
     const { email, password } = req.body;
 
