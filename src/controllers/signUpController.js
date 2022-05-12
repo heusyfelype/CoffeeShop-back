@@ -19,7 +19,7 @@ export async function signUpController(req, res) {
         return res.sendStatus(200)
 
     } catch (e) {
-        res.send(e)
+       return res.send(e)
     }
 
 } 

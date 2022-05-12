@@ -5,6 +5,7 @@ import { mongoConnection } from './mongoDB.js';
 
 import signUpRouter from './routers/signUpRouter.js';
 import loginRouter from './routers/loginRouter.js'
+import inputProduct from './routers/inputProductRouter.js'
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(json());
 
 app.use(signUpRouter);
 app.use(loginRouter)
+app.use(inputProduct)
 
 const port = process.env.PORT || 5000;
 
