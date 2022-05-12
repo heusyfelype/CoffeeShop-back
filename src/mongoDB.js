@@ -11,7 +11,7 @@ export function mongoConnection () {
     const mongoClient = new MongoClient(process.env.MONGO_URL);
     mongoClient.connect().then(() => {
     
-        database = mongoClient.db('CoffeeShop');   
+        database = mongoClient.db('CoffeeShop');
     
     }).catch((e) => {
     

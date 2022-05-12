@@ -6,4 +6,4 @@ const loginRouter = Router();
 
 loginRouter.post('/login', validLogin, userLogin);
 
-export default tokenRouter;
+export default loginRouter;

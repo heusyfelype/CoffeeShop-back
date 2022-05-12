@@ -2,33 +2,37 @@ import bcrypt from 'bcrypt';
 import { v4 } from 'uuid';
 import { database } from '../mongoDB.js';
 
-export async function userLogin (req, res) {
+export async function userLogin(req, res) {
 
     const { email, password } = req.body;
 
-    const user = await database.collection('users').findOne({ email });
+    try {
 
-    if (!user) {
+        const user = await database.collection('users').findOne({ email });
 
-        console.log(user);
-        return res.status(404).send('User not found!');
+        if (!user) {
 
+            console.log(user);
+            return res.status(404).send('User not found!');
+
+        }
+
+        if (bcrypt.compareSync(password, user.password)) {
+
+            const token = v4();
+            await database.collection('sessions').insertOne({
+
+                token,
+                userId: user._id
+
+            });
+            return res.send(token);
+
+        }
+
+        res.sendStatus(401);
+    } catch (e) {
+        return res.send(e)
     }
-
-    if (bcrypt.compareSync(password. user.password)) {
-
-        const token = v4();
-        await database.collection('sessions').insertOne({
-
-            token,
-            userId: user._id
-
-        });
-
-        return res.send(token);
-
-    }
-
-    res.sendStatus(401);
 
 }
