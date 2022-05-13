@@ -22,11 +22,14 @@ export async function userLogin(req, res) {
             const token = v4();
             await database.collection('sessions').insertOne({
 
-                token,
+                token: token,
                 userId: user._id
 
             });
-            return res.send(token);
+
+            const userValidation = {token, userId: user._id};
+
+            return res.send(userValidation);
 
         }
 
