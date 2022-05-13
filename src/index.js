@@ -5,7 +5,9 @@ import { mongoConnection } from './mongoDB.js';
 
 import signUpRouter from './routers/signUpRouter.js';
 import loginRouter from './routers/loginRouter.js'
-import inputProduct from './routers/inputProductRouter.js'
+import inputProduct from './routers/inputProductRouter.js';
+import categoryRouter from './routers/categoryRouter.js';
+import productPageRouter from './routers/productPageRouter.js';
 
 dotenv.config();
 
@@ -15,8 +17,10 @@ app.use(cors());
 app.use(json());
 
 app.use(signUpRouter);
-app.use(loginRouter)
-app.use(inputProduct)
+app.use(loginRouter);
+app.use(inputProduct);
+app.use(categoryRouter);
+app.use(productPageRouter);
 
 const port = process.env.PORT || 5000;
 
