@@ -33,6 +33,9 @@ export async function productInCartController(req, res) {
             return res.sendStatus(201)
         }
 
+        if(infosRefreshCart.qtt < 1){
+            return;
+        }
         const product = await database.collection("products").findOne({_id: new ObjectId(infosRefreshCart.productId)})
 
         let productId = product._id;
