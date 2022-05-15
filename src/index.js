@@ -8,6 +8,7 @@ import loginRouter from './routers/loginRouter.js'
 import inputProduct from './routers/inputProductRouter.js';
 import categoryRouter from './routers/categoryRouter.js';
 import productPageRouter from './routers/productPageRouter.js';
+import productInCartRouter from './routers/productsInCartRouter.js'
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(loginRouter);
 app.use(inputProduct);
 app.use(categoryRouter);
 app.use(productPageRouter);
+app.use(productInCartRouter);
 
 const port = process.env.PORT || 5000;
 
