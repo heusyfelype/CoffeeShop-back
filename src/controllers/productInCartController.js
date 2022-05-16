@@ -33,10 +33,13 @@ export async function productInCartController(req, res) {
             return res.sendStatus(201)
         }
 
-        if(infosRefreshCart.qtt < 1){
+        if(infosRefreshCart.actions === 'remove'){
             return;
         }
         const product = await database.collection("products").findOne({_id: new ObjectId(infosRefreshCart.productId)})
+        if(!product){
+            res.status(422).send("Este produto não existe")
+        }
 
         let productId = product._id;
         delete product._id
