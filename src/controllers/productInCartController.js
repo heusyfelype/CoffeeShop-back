@@ -4,22 +4,21 @@ import { database } from '../mongoDB.js';
 export async function productInCartController(req, res) {
 
     const infosRefreshCart = req.body
-    console.log(infosRefreshCart)
 
     try {
 
         const findCartOfProduct = await database.collection('cart').findOne({ userId: infosRefreshCart.userId, productId: new ObjectId(infosRefreshCart.productId) });
         if (findCartOfProduct) {
-            console.log("findCartOfProduct.qtt: ", findCartOfProduct.qtt)
             if (infosRefreshCart.action === 'add') {
                 findCartOfProduct.qtt = findCartOfProduct.qtt + infosRefreshCart.qtt;
             } else {
                 findCartOfProduct.qtt = findCartOfProduct.qtt - infosRefreshCart.qtt;
             }
+            console.log(findCartOfProduct)
 
             if(findCartOfProduct.qtt <= 0){
                 await database.collection('cart').deleteOne({ userId: infosRefreshCart.userId, productId: new ObjectId(infosRefreshCart.productId) });
-                return;
+                return res.sendStatus(201);
             }
             findCartOfProduct.priceCart = findCartOfProduct.qtt * findCartOfProduct.price;
 
