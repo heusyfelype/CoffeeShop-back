@@ -3,7 +3,6 @@ import { database } from '../mongoDB.js';
 
 export async function findOneProductController(req, res) {
     const productID = req.headers.product_id;
-    console.log(productID)
 
     try {
 

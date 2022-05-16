@@ -7,23 +7,22 @@ export async function productInCartController(req, res) {
 
     try {
 
-        const findCartOfProduct = await database.collection('cart').findOne({ userId: infosRefreshCart.userId, productId: new ObjectId(infosRefreshCart.productId) });
+        const findCartOfProduct = await database.collection('cart').findOne({ userId:  new ObjectId(infosRefreshCart.userId), productId: new ObjectId(infosRefreshCart.productId) });
         if (findCartOfProduct) {
             if (infosRefreshCart.action === 'add') {
                 findCartOfProduct.qtt = findCartOfProduct.qtt + infosRefreshCart.qtt;
             } else {
                 findCartOfProduct.qtt = findCartOfProduct.qtt - infosRefreshCart.qtt;
             }
-            console.log(findCartOfProduct)
 
             if(findCartOfProduct.qtt <= 0){
-                await database.collection('cart').deleteOne({ userId: infosRefreshCart.userId, productId: new ObjectId(infosRefreshCart.productId) });
+                await database.collection('cart').deleteOne({ userId:  new ObjectId(infosRefreshCart.userId), productId: new ObjectId(infosRefreshCart.productId) });
                 return res.sendStatus(201);
             }
             findCartOfProduct.priceCart = findCartOfProduct.qtt * findCartOfProduct.price;
 
             await database.collection('cart').updateOne({ 
-                userId: infosRefreshCart.userId, 
+                userId:  new ObjectId(infosRefreshCart.userId), 
                 productId: new ObjectId(infosRefreshCart.productId) 
             }, { $set: {
                 qtt : findCartOfProduct.qtt,
@@ -45,7 +44,7 @@ export async function productInCartController(req, res) {
         await database.collection('cart').insertOne({ 
             ...product, 
             productId: productId, 
-            userId: infosRefreshCart.userId,
+            userId: new ObjectId(infosRefreshCart.userId),
             qtt: infosRefreshCart.qtt,
             priceCart: product.price * infosRefreshCart.qtt
         });
