@@ -2,6 +2,9 @@ import { database } from '../mongoDB.js';
 
 export async function sendProductsController(req, res) {
 
+    //const category = req.headers.category
+     
+
     try {
 
         const findProductsCategory = await database.collection('products').find({category : req.headers.category}).toArray();
